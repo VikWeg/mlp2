@@ -111,7 +111,7 @@ if found['final_sub.csv'] == 1:
 	for line in lines:
 		finalSub.append(line)
 
-	if finalSub[0] != '"ID","Prediction"\n' and finalSub[0] != 'ID,Prediction\n':
+	if finalSub[0] != '"ID","Prediction"\n' and finalSub[0] != 'ID,Prediction\n' and finalSub[0] != 'ID,Prediction\r\n' and finalSub[0] != '"ID","Prediction"\r\n':
 		print( "ERROR: Invalid first row in final_sub.csv, first row must be 'ID,Prediction'")
 		ERROR += 1
 
