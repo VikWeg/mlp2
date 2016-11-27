@@ -2,6 +2,7 @@
 Sample submission &amp; Submission checking
 
 **checkSub.py**
+
 Checks your code submission and detects common mistakes.
 Submit your code only after it has *PASS*ed the test.
 
