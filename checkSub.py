@@ -146,7 +146,7 @@ if found['readme'] == 1:
 			print( "ERROR: More than one email per line in readme, put each email in a separate line")
 			ERROR += 1
 		elif line.find("@") != -1:
-			if "ethz" in line:
+			if "ethz" in line or "uzh" in line:
 				validEmailCount += 1
 			else:
 				print( "ERROR: Invalid email in readme, provide .ethz.ch mail address, each author in a separate line")
