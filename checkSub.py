@@ -112,7 +112,7 @@ if found['final_sub.csv'] == 1:
 		finalSub.append(line)
 
 	if finalSub[0] != '"ID","Prediction"\n' and finalSub[0] != 'ID,"Prediction\n':
-		print( "ERROR: Invalid first row in final.csv, first row must be 'ID,Prediction'")
+		print( "ERROR: Invalid first row in final_sub.csv, first row must be 'ID,Prediction'")
 		ERROR += 1
 
 	if len(finalSub) != FINAL_SUB_LENGTH:
