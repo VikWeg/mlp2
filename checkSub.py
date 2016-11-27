@@ -70,6 +70,7 @@ if len(subfiles) != 4:
 	elif subfiles[0] == "__MACOSX":
 		print( "ERROR: Invalid archive structure. There must not be a '__MACOSX' folder and submission items must not be in a superfolder.")
 		ERROR += 1
+	rmtree("tmp")
 	sys.exit(-1)
 
 found = {'readme' : 0, 'src' : 0, 'predict_final' : 0, 'final_sub.csv' : 0}
