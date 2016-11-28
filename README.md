@@ -1,12 +1,18 @@
-# MLP2
+# MLP2 code submission
 
-**checkSub.py**
+The lines marked with (!) are essential for a successful submission.
 
-Checks your code submission and detects common mistakes.
-Submit your code only after it has *PASS*ed the test.
-
-**MLP_*teamname*.zip**
-
-Sample code submission which shows how to structure a valid submission.
-predict_final.py and readme contain further info on the individual items.
+**Sending the submission**
+(!) You must use your .ethz.ch email address for sending the submission.
+(!) Send your submission-zip as an attachment to ml16-ta@inf.ethz.ch
+The subject of the email should be MLP2_*teamname*
+ 
+**Submission Verification: checkSub.py**
+Check code submission and detect common mistakes.
+(!) Only send your submission after you have run and *PASS*ed this verification.
+Command line usage: "python checkSub.py pathToYourSubmissionArchive"
+ 
+**Sample code submission: MLP2_*teamname*.zip**
+Show and describe how the code submission should be structured.
+Open the files to view instructions about the individual items.
 Replace *teamname* with the name of your team.
