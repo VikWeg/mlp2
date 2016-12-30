@@ -10,7 +10,18 @@ import zipfile
 from shutil import rmtree
 
 PROJECT = 'MLP3'
-FINAL_SUB_LENGTH = 139
+FINAL_SUB_LENGTH = {
+	'MLP1': 139,
+	'MLP2': 139,
+	'MLP3': 415,
+}
+
+FINAL_SUB_COLUMNS = {
+	'MLP1': ["ID", "Prediction"],
+	'MLP2': ["ID", "Prediction"],
+	'MLP3': ["ID","Sample","Label","Predicted"],
+}
+
 MIN_DESCRIPTION_LENGTH = 50
 ERROR = 0
 
@@ -108,20 +119,24 @@ if found['final_sub.csv'] == 1:
 
 	lines = open("tmp/final_sub.csv")
 
-	finalSub = []
-	for line in lines:
-		finalSub.append(line)
+	finalSub = [line.strip() for line in lines]
 
-	if not ("ID" in finalSub[0] or "Prediction" in finalSub[0]):
-		print( "ERROR: Invalid first row in final_sub.csv, first row must be 'ID,Prediction'")
+	for column_header in FINAL_SUB_COLUMNS[PROJECT]:
+		if column_header not in finalSub[0]:
+			print( "ERROR: Invalid first row in final_sub.csv, first row must contain '{}'".format(column_header))
+			ERROR += 1
+
+	expected_length = FINAL_SUB_LENGTH[PROJECT]
+	if len(finalSub) != expected_length:
+		print( "ERROR: Invalid number of rows in final_sub.csv, "+str(expected_length)+" rows required: 1 header row plus "+str(expected_length-1)+" id/prediction paris")
+		print( "  Actual length: {}".format(len(finalSub)))
 		ERROR += 1
 
-	if len(finalSub) != FINAL_SUB_LENGTH:
-		print( "ERROR: Invalid number of rows in final_sub.csv, "+str(FINAL_SUB_LENGTH)+" rows required: 1 header row plus "+str(FINAL_SUB_LENGTH-1)+" id/prediction paris")
-		ERROR += 1
-
-	if len(finalSub[0].split(",")) != 2:
-		print( "ERROR: Invalid number of columns in final_sub.csv, 2 columns required: ID and Prediction")
+	expected_columns = len(FINAL_SUB_COLUMNS[PROJECT])
+	actual_columns = finalSub[0].split(",")
+	if len(actual_columns) != expected_columns:
+		print( "ERROR: Invalid number of columns in final_sub.csv, {} columns required".format(expected_columns))
+		print( "  Actual column length: {}".format(actual_columns))
 		ERROR += 1
 
 # Check predict_final.py
@@ -139,7 +154,7 @@ if found['readme'] == 1:
 	with open("tmp/readme") as readme:
 		for line in readme:
 			if line[0] != "#":
-				lines.append(line)
+				lines.append(line.strip())
 
 	validEmailCount = 0
 	for line in lines:
@@ -160,13 +175,13 @@ if found['readme'] == 1:
 	foundSection = {"Preprocessing" : 0, "Features" : 0, "Model" : 0, "Description" : 0}
 	n=1
 	for line in lines:
-		if "Preprocessing" in line:
+		if "Preprocessing" == line:
 			foundSection["Preprocessing"] = n
-		elif "Features" in line:
+		elif "Features" == line:
 			foundSection["Features"] = n
-		elif "Model" in line:
+		elif "Model" == line:
 			foundSection["Model"] = n
-		elif "Description" in line:
+		elif "Description" == line:
 			foundSection["Description"] = n
 		n+=1
 
