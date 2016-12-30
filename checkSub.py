@@ -154,7 +154,7 @@ if found['readme'] == 1:
 	with open("tmp/readme") as readme:
 		for line in readme:
 			if line[0] != "#":
-				lines.append(line)
+				lines.append(line.strip())
 
 	validEmailCount = 0
 	for line in lines:
@@ -175,13 +175,13 @@ if found['readme'] == 1:
 	foundSection = {"Preprocessing" : 0, "Features" : 0, "Model" : 0, "Description" : 0}
 	n=1
 	for line in lines:
-		if "Preprocessing" in line:
+		if "Preprocessing" == line:
 			foundSection["Preprocessing"] = n
-		elif "Features" in line:
+		elif "Features" == line:
 			foundSection["Features"] = n
-		elif "Model" in line:
+		elif "Model" == line:
 			foundSection["Model"] = n
-		elif "Description" in line:
+		elif "Description" == line:
 			foundSection["Description"] = n
 		n+=1
 
