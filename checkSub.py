@@ -119,13 +119,12 @@ if found['final_sub.csv'] == 1:
 
 	lines = open("tmp/final_sub.csv")
 
-	finalSub = []
-	for line in lines:
-		finalSub.append(line)
+	finalSub = [line.strip() for line in lines]
 
-	if not ("ID" in finalSub[0] or "Prediction" in finalSub[0]):
-		print( "ERROR: Invalid first row in final_sub.csv, first row must be 'ID,Prediction'")
-		ERROR += 1
+	for column_header in FINAL_SUB_COLUMNS[PROJECT]:
+		if column_header not in finalSub[0]:
+			print( "ERROR: Invalid first row in final_sub.csv, first row must contain '{}'".format(column_header))
+			ERROR += 1
 
 	expected_length = FINAL_SUB_LENGTH[PROJECT]
 	if len(finalSub) != expected_length:
