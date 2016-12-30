@@ -10,7 +10,18 @@ import zipfile
 from shutil import rmtree
 
 PROJECT = 'MLP3'
-FINAL_SUB_LENGTH = 139
+FINAL_SUB_LENGTH = {
+	'MLP1': 139,
+	'MLP2': 139,
+	'MLP3': 415,
+}
+
+FINAL_SUB_COLUMNS = {
+	'MLP1': ["ID", "Prediction"],
+	'MLP2': ["ID", "Prediction"],
+	'MLP3': ["ID","Sample","Label","Predicted"],
+}
+
 MIN_DESCRIPTION_LENGTH = 50
 ERROR = 0
 
@@ -116,12 +127,17 @@ if found['final_sub.csv'] == 1:
 		print( "ERROR: Invalid first row in final_sub.csv, first row must be 'ID,Prediction'")
 		ERROR += 1
 
-	if len(finalSub) != FINAL_SUB_LENGTH:
-		print( "ERROR: Invalid number of rows in final_sub.csv, "+str(FINAL_SUB_LENGTH)+" rows required: 1 header row plus "+str(FINAL_SUB_LENGTH-1)+" id/prediction paris")
+	expected_length = FINAL_SUB_LENGTH[PROJECT]
+	if len(finalSub) != expected_length:
+		print( "ERROR: Invalid number of rows in final_sub.csv, "+str(expected_length)+" rows required: 1 header row plus "+str(expected_length-1)+" id/prediction paris")
+		print( "  Actual length: {}".format(len(finalSub)))
 		ERROR += 1
 
-	if len(finalSub[0].split(",")) != 2:
-		print( "ERROR: Invalid number of columns in final_sub.csv, 2 columns required: ID and Prediction")
+	expected_columns = len(FINAL_SUB_COLUMNS[PROJECT])
+	actual_columns = finalSub[0].split(",")
+	if len(actual_columns) != expected_columns:
+		print( "ERROR: Invalid number of columns in final_sub.csv, {} columns required".format(expected_columns))
+		print( "  Actual column length: {}".format(actual_columns))
 		ERROR += 1
 
 # Check predict_final.py
